@@ -12,10 +12,6 @@ public class Pruebas {
         //String expresion4 = "9";
 
         Arbol ex = new Arbol(expresion1);
-        
-        //ex.preOrden();
-        //ex.postOrden();
-        //ex.ordenCentral();
         ex.mostrarExpresion();
     }
 }
