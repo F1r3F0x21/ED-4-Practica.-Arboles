@@ -12,7 +12,7 @@ public class Pruebas {
         //String expresion4 = "9";
 
         Arbol ex = new Arbol(expresion1);
-        ex.mostrarExpresion();
+        ex.MostrarExpresion();
     }
 }
 

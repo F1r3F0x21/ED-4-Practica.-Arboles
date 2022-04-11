@@ -207,8 +207,8 @@ public class Arbol {
                 //System.out.println("Apilar Hijo: "+aux[i]);
             }else {
                 //System.out.println("Nodo Operador: "+aux[i]);
-                NodoArbol nodoIzquierdo = pilaAuxiliar.desapilar();
                 NodoArbol nodoDerecho = pilaAuxiliar.desapilar();
+                NodoArbol nodoIzquierdo = pilaAuxiliar.desapilar();
                 NodoArbol operador = new NodoArbol(aux[i], nodoIzquierdo, nodoDerecho);
                 pilaAuxiliar.apilar(operador);
             }
@@ -218,8 +218,22 @@ public class Arbol {
 
     // ------------------------------------------------------------------------
     // TODO 2.4
-    public void mostrarExpresion() {
-        ordenCentral();
+
+    public void MostrarExpresion() {
+        System.out.println("Orden Central: ");
+        this.MostrarExpresionRec(raiz);
+        System.out.println();
+    }
+
+    private void MostrarExpresionRec(NodoArbol nodo) {
+        if (nodo != null) {
+            this.MostrarExpresionRec(nodo.getIzquierdo());
+            if (esDigito(nodo.getDato())){
+                System.out.print('(');
+            }            
+            System.out.print(nodo.getDato() + "  ");
+            this.MostrarExpresionRec(nodo.getDerecho());
+        }
     }
 
     // ------------------------------------------------------------------------
