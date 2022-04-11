@@ -58,7 +58,7 @@ public class Pila {
         Nodo auxiliar = cima;
         System.out.println("Contenido de la pila:");
         while (auxiliar != null) {
-            System.out.println(auxiliar.getDato());
+            System.out.print(auxiliar.getDato().getDato());
             auxiliar = auxiliar.getSiguiente();
         }
         System.out.println("FIN");

@@ -226,12 +226,9 @@ public class Arbol {
     }
 
     private void MostrarExpresionRec(NodoArbol nodo) {
-        if (nodo != null) {
+        if (nodo != null) { 
             this.MostrarExpresionRec(nodo.getIzquierdo());
-            if (esDigito(nodo.getDato())){
-                System.out.print('(');
-            }            
-            System.out.print(nodo.getDato() + "  ");
+            System.out.print(nodo.getDato());
             this.MostrarExpresionRec(nodo.getDerecho());
         }
     }
