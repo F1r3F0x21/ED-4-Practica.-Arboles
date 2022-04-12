@@ -7,12 +7,12 @@ public class Pruebas {
 
 
         String expresion1 = "52+83-*4/";
-        String expresion2 = "92+3+4*";
-        String expresion3 = "29*37-5*+8/";
-        String expresion4 = "9";
+        //String expresion2 = "92+3+4*";
+        //String expresion3 = "29*37-5*+8/";
+        //String expresion4 = "9";
 
-        Arbol arbol = new Arbol(expresion1);
-        arbol.ordenCentral();
+        Arbol ex = new Arbol(expresion1);
+        ex.MostrarExpresion();
     }
 }
 

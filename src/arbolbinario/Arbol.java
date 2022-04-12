@@ -46,7 +46,7 @@ public class Arbol {
      * Recorrido en orden central
      */
     public void ordenCentral() {
-        System.out.print("Orden Central: ");
+        System.out.println("Orden Central: ");
         this.ordenCentralRec(raiz);
         System.out.println();
     }
@@ -194,30 +194,43 @@ public class Arbol {
 
     // ------------------------------------------------------------------------
     // TODO 2.3
+
     public Arbol(String cadena) {
         char [] aux;
-        System.out.println("Constructor Arbol");
-        Pila pilauxiliar = new Pila();
+        //System.out.println("Constructor Arbol");
+        Pila pilaAuxiliar = new Pila();
         aux = cadena.toCharArray();
         for (int i = 0; i < cadena.length(); i++){
             NodoArbol numero = new NodoArbol(aux[i]);
             if (!esOperador(aux[i])){
-                pilauxiliar.apilar(numero);
-                System.out.println("el array: "+aux[i]);
+                pilaAuxiliar.apilar(numero);
+                //System.out.println("Apilar Hijo: "+aux[i]);
             }else {
-                NodoArbol desapilar;
-                desapilar = pilauxiliar.desapilar();
-                NodoArbol operador = new NodoArbol(aux[i], pilauxiliar.desapilar(), desapilar);
-                pilauxiliar.apilar(operador);
-                System.out.println("el op: "+aux[i]);
+                //System.out.println("Nodo Operador: "+aux[i]);
+                NodoArbol nodoDerecho = pilaAuxiliar.desapilar();
+                NodoArbol nodoIzquierdo = pilaAuxiliar.desapilar();
+                NodoArbol operador = new NodoArbol(aux[i], nodoIzquierdo, nodoDerecho);
+                pilaAuxiliar.apilar(operador);
             }
         }
+        raiz = pilaAuxiliar.desapilar();
     }
 
     // ------------------------------------------------------------------------
     // TODO 2.4
-    public void mostrarExpresion() {
-        ordenCentral();
+
+    public void MostrarExpresion() {
+        System.out.println("Orden Central: ");
+        this.MostrarExpresionRec(raiz);
+        System.out.println();
+    }
+
+    private void MostrarExpresionRec(NodoArbol nodo) {
+        if (nodo != null) { 
+            this.MostrarExpresionRec(nodo.getIzquierdo());
+            System.out.print(nodo.getDato());
+            this.MostrarExpresionRec(nodo.getDerecho());
+        }
     }
 
     // ------------------------------------------------------------------------
