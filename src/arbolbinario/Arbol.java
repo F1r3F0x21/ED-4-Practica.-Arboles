@@ -206,9 +206,9 @@ public class Arbol {
             if (!esOperador(aux[i])){
                 p =+ p;
                 pilaAuxiliar.apilar(numero);
-                //System.out.println("Apilar Hijo: "+aux[i]);
+                
             }else {
-                //System.out.println("Nodo Operador: "+aux[i]);
+                
                 NodoArbol nodoDerecho = pilaAuxiliar.desapilar();
                 NodoArbol parentesisDerecho = new NodoArbol(')',nodoDerecho,null);
                 NodoArbol nodoIzquierdo = pilaAuxiliar.desapilar();
