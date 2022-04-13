@@ -204,9 +204,9 @@ public class Arbol {
             NodoArbol numero = new NodoArbol(aux[i]);
             if (!esOperador(aux[i])){
                 pilaAuxiliar.apilar(numero);
-                //System.out.println("Apilar Hijo: "+aux[i]);
+                
             }else {
-                //System.out.println("Nodo Operador: "+aux[i]);
+                
                 NodoArbol nodoDerecho = pilaAuxiliar.desapilar();
                 NodoArbol nodoIzquierdo = pilaAuxiliar.desapilar();
                 NodoArbol operador = new NodoArbol(aux[i], nodoIzquierdo, nodoDerecho);
