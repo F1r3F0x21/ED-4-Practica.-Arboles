@@ -200,16 +200,21 @@ public class Arbol {
         //System.out.println("Constructor Arbol");
         Pila pilaAuxiliar = new Pila();
         aux = cadena.toCharArray();
+        int p = 0;
         for (int i = 0; i < cadena.length(); i++){
             NodoArbol numero = new NodoArbol(aux[i]);
             if (!esOperador(aux[i])){
+                p =+ p;
                 pilaAuxiliar.apilar(numero);
                 //System.out.println("Apilar Hijo: "+aux[i]);
             }else {
                 //System.out.println("Nodo Operador: "+aux[i]);
                 NodoArbol nodoDerecho = pilaAuxiliar.desapilar();
+                NodoArbol parentesisDerecho = new NodoArbol(')',nodoDerecho,null);
                 NodoArbol nodoIzquierdo = pilaAuxiliar.desapilar();
-                NodoArbol operador = new NodoArbol(aux[i], nodoIzquierdo, nodoDerecho);
+                NodoArbol parentesisIzquierdo = new NodoArbol('(',null,nodoIzquierdo);
+                //NodoArbol operador = new NodoArbol(aux[i], nodoIzquierdo, nodoDerecho);
+                NodoArbol operador = new NodoArbol(aux[i], parentesisIzquierdo, parentesisDerecho);
                 pilaAuxiliar.apilar(operador);
             }
         }
@@ -238,7 +243,4 @@ public class Arbol {
     public double calcularValor() {
         return 0.0;
     }
-
-
-
 }
