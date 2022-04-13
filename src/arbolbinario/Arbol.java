@@ -197,7 +197,6 @@ public class Arbol {
 
     public Arbol(String cadena) {
         char [] aux;
-        //System.out.println("Constructor Arbol");
         Pila pilaAuxiliar = new Pila();
         aux = cadena.toCharArray();
         for (int i = 0; i < cadena.length(); i++){
@@ -224,7 +223,6 @@ public class Arbol {
         this.MostrarExpresionRec(raiz);
         System.out.println();
     }
-
     private void MostrarExpresionRec(NodoArbol nodo) {
         if (nodo != null) { 
             this.MostrarExpresionRec(nodo.getIzquierdo());
@@ -238,7 +236,5 @@ public class Arbol {
     public double calcularValor() {
         return 0.0;
     }
-
-
 
 }
