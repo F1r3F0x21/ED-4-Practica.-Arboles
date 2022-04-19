@@ -14,5 +14,7 @@ public class Pruebas {
         Arbol ex2 = new Arbol(expresion2);
         ex.MostrarExpresion();
         ex2.MostrarExpresion();
+
+        ex.calcularValor();
     }
 }
