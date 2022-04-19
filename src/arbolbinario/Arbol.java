@@ -199,17 +199,29 @@ public class Arbol {
         char [] aux;
         Pila pilaAuxiliar = new Pila();
         aux = cadena.toCharArray();
+        int p = 0;
         for (int i = 0; i < cadena.length(); i++){
             NodoArbol numero = new NodoArbol(aux[i]);
             if (!esOperador(aux[i])){
-                pilaAuxiliar.apilar(numero);
-                
+                pilaAuxiliar.apilar(numero);         
             }else {
-                
+             
+                char pard,pari;
+                if ( i ==  cadena.length()-1){
+                    pard = ' ';
+                    pari = ' ';
+                } else {
+                    pard = '(';
+                    pari = ')'; 
+                }
                 NodoArbol nodoDerecho = pilaAuxiliar.desapilar();
+                NodoArbol parentesisDerecho = new NodoArbol(pari,nodoDerecho,null);
                 NodoArbol nodoIzquierdo = pilaAuxiliar.desapilar();
-                NodoArbol operador = new NodoArbol(aux[i], nodoIzquierdo, nodoDerecho);
+                NodoArbol parentesisIzquierdo = new NodoArbol(pard,null,nodoIzquierdo);
+                //NodoArbol operador = new NodoArbol(aux[i], nodoIzquierdo, nodoDerecho);
+                NodoArbol operador = new NodoArbol(aux[i], parentesisIzquierdo, parentesisDerecho);
                 pilaAuxiliar.apilar(operador);
+                
             }
         }
         raiz = pilaAuxiliar.desapilar();
@@ -233,8 +245,45 @@ public class Arbol {
 
     // ------------------------------------------------------------------------
     // TODO 2.5
-    public double calcularValor() {
-        return 0.0;
+
+    public double calcularValor() { 
+        return this.CalcularValorRec(raiz);
+
     }
+
+    public double CalcularValorRec (NodoArbol nodo){
+    int izq; int der; char pito; double res = 0.0;
+        if (nodo != null) { 
+            this.CalcularValorRec(nodo.getIzquierdo());
+            izq = pasarAEntero(nodo.getIzquierdo().getDato());
+            der = pasarAEntero(nodo.getDerecho().getDato());
+            pito = nodo.getDato();
+            if ( pito == '+'){
+                res = izq + der;
+                pito = (char) res;
+                NodoArbol nodop = new NodoArbol(pito);
+                nodo = nodop;
+            }else if (pito == '-'){
+                res = izq - der;
+                pito = (char) res;
+                NodoArbol nodop = new NodoArbol(pito);
+                nodo = nodop;
+            }else if (pito == '*'){
+                res = izq * der;
+                pito = (char) res;
+                NodoArbol nodop = new NodoArbol(pito);
+                nodo = nodop;
+            }else if (pito == '/'){
+                res = izq / der;
+                pito = (char) res;
+                NodoArbol nodop = new NodoArbol(pito);
+                nodo = nodop;
+            }         
+            this.CalcularValorRec(nodo.getDerecho());
+        
+    }
+    return res;
+
+}
 
 }

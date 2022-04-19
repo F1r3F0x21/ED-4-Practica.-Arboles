@@ -6,11 +6,13 @@ public class Pruebas {
         System.out.println("********** PRUEBAS ARBOL BINARIO DE EXPRESION **********");
 
         String expresion1 = "52+83-*4/";
-        //String expresion2 = "92+3+4*";
+        String expresion2 = "92+3+4*";
         //String expresion3 = "29*37-5*+8/";
         //String expresion4 = "9";
 
         Arbol ex = new Arbol(expresion1);
+        Arbol ex2 = new Arbol(expresion2);
         ex.MostrarExpresion();
+        ex2.MostrarExpresion();
     }
 }
