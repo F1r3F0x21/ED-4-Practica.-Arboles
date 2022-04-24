@@ -135,7 +135,26 @@ public class ArbolBinarioBusqueda {
 	// ------------------------------------------------------------------------
 	// TODO 3.2
 	public ListaOrdinalAlumnos aLista() {
-		return null;
+		return aListaRec(raiz, 1);
+	}
+
+	public ListaOrdinalAlumnos aListaRec(NodoArbol nodo, int nivel){
+		Alumno clave = raiz.getDato();
+		ListaOrdinalAlumnos lista = new ListaOrdinalAlumnos();
+		if ( getNumElementos() != lista.getNumElementos()){
+			if (nodo != null){	
+				if (clave.getMatricula() < nodo.getClave()){
+					clave = nodo.getDato();
+				}
+				aListaRec(nodo.getIzquierdo(), nivel + 1);
+				aListaRec(nodo.getDerecho(), nivel + 1);	
+			}
+			lista.insertar(clave);
+			borrar(clave.getMatricula());
+			aListaRec(raiz, 1);
+		}
+
+		return lista;
 	}
 
 	// ------------------------------------------------------------------------

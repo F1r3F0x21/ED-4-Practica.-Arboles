@@ -102,7 +102,7 @@ public class Arbol {
      * Recorrido en amplitud con una cola proporcionada por la clase ArrayDeque
      */
     public void amplitud2() {
-        ArrayDeque<NodoArbol> cola = new ArrayDeque<NodoArbol>();
+        ArrayDeque<NodoArbol> cola = new ArrayDeque<>();
         System.out.print("Amplitud: ");
         if (raiz != null) {
             cola.add(raiz);
@@ -199,13 +199,11 @@ public class Arbol {
         char [] aux;
         Pila pilaAuxiliar = new Pila();
         aux = cadena.toCharArray();
-        int p = 0;
         for (int i = 0; i < cadena.length(); i++){
             NodoArbol numero = new NodoArbol(aux[i]);
             if (!esOperador(aux[i])){
                 pilaAuxiliar.apilar(numero);         
             }else {
-             
                 char pard,pari;
                 if ( i ==  cadena.length()-1){
                     pard = ' ';
@@ -218,7 +216,6 @@ public class Arbol {
                 NodoArbol parentesisDerecho = new NodoArbol(pari,nodoDerecho,null);
                 NodoArbol nodoIzquierdo = pilaAuxiliar.desapilar();
                 NodoArbol parentesisIzquierdo = new NodoArbol(pard,null,nodoIzquierdo);
-                //NodoArbol operador = new NodoArbol(aux[i], nodoIzquierdo, nodoDerecho);
                 NodoArbol operador = new NodoArbol(aux[i], parentesisIzquierdo, parentesisDerecho);
                 pilaAuxiliar.apilar(operador);
                 
@@ -231,7 +228,6 @@ public class Arbol {
     // TODO 2.4
 
     public void MostrarExpresion() {
-        System.out.println("Orden Central: ");
         this.MostrarExpresionRec(raiz);
         System.out.println();
     }
@@ -248,42 +244,41 @@ public class Arbol {
 
     public double calcularValor() { 
         return this.CalcularValorRec(raiz);
-
     }
 
     public double CalcularValorRec (NodoArbol nodo){
-    int izq; int der; char pito; double res = 0.0;
-        if (nodo != null) { 
-            this.CalcularValorRec(nodo.getIzquierdo());
-            izq = pasarAEntero(nodo.getIzquierdo().getDato());
-            der = pasarAEntero(nodo.getDerecho().getDato());
-            pito = nodo.getDato();
-            if ( pito == '+'){
-                res = izq + der;
-                pito = (char) res;
-                NodoArbol nodop = new NodoArbol(pito);
-                nodo = nodop;
-            }else if (pito == '-'){
-                res = izq - der;
-                pito = (char) res;
-                NodoArbol nodop = new NodoArbol(pito);
-                nodo = nodop;
-            }else if (pito == '*'){
-                res = izq * der;
-                pito = (char) res;
-                NodoArbol nodop = new NodoArbol(pito);
-                nodo = nodop;
-            }else if (pito == '/'){
-                res = izq / der;
-                pito = (char) res;
-                NodoArbol nodop = new NodoArbol(pito);
-                nodo = nodop;
-            }         
-            this.CalcularValorRec(nodo.getDerecho());
-        
+        int izq; int der; char pito; double res = 0.0;
+            if (nodo != null ) { 
+                CalcularValorRec(nodo.getIzquierdo());
+                CalcularValorRec(nodo.getDerecho());
+                izq = pasarAEntero(nodo.getIzquierdo().getDato());
+                der = pasarAEntero(nodo.getDerecho().getDato());
+                pito = nodo.getDato();
+                if ( pito == '+'){
+                    res = izq + der;
+                    pito = (char) res;
+                    NodoArbol nodop = new NodoArbol(pito,nodo.getIzquierdo(), nodo.getDerecho());
+                    nodo = nodop;
+                }else if (pito == '-'){
+                    res = izq - der;
+                    pito = (char) res;
+                    NodoArbol nodop = new NodoArbol(pito,nodo.getIzquierdo(), nodo.getDerecho());;
+                    nodo = nodop;
+                }else if (pito == '*'){
+                    res = izq * der;
+                    pito = (char) res;
+                    NodoArbol nodop = new NodoArbol(pito,nodo.getIzquierdo(), nodo.getDerecho());
+                    nodo = nodop;
+                }else if (pito == '/'){
+                    res = izq / der;
+                    pito = (char) res;
+                    NodoArbol nodop = new NodoArbol(pito,nodo.getIzquierdo(), nodo.getDerecho());
+                    nodo = nodop;  
+                }
+            
+        }
+        return res;
+    
     }
-    return res;
-
-}
 
 }
