@@ -4,7 +4,6 @@ public class Pruebas {
 
     public static void main(String[] args) {
         System.out.println("********** PRUEBAS ARBOL BINARIO DE EXPRESION **********");
-
         String expresion1 = "52+83-*4/";
         String expresion2 = "92+3+4*";
         String expresion3 = "29*37-5*+8/";
@@ -17,6 +16,6 @@ public class Pruebas {
         ex2.MostrarExpresion();
         ex3.MostrarExpresion();
         ex4.MostrarExpresion();
-        ex.calcularValor();
+       System.out.println(ex.calcularValor());
     }
 }

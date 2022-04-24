@@ -247,33 +247,29 @@ public class Arbol {
     }
 
     public double CalcularValorRec (NodoArbol nodo){
-        int izq; int der; char pito; double res = 0.0;
-            if (nodo != null ) { 
-                CalcularValorRec(nodo.getIzquierdo());
-                CalcularValorRec(nodo.getDerecho());
+        double izq; double der; char pito; double res = 0.0;
+            if (nodo != null && nodo.getIzquierdo() != null && nodo.getDerecho() != null) { 
                 izq = pasarAEntero(nodo.getIzquierdo().getDato());
+                CalcularValorRec(nodo.getIzquierdo());
                 der = pasarAEntero(nodo.getDerecho().getDato());
-                pito = nodo.getDato();
+                CalcularValorRec(nodo.getDerecho());
+                pito = raiz.getDato();
                 if ( pito == '+'){
                     res = izq + der;
                     pito = (char) res;
-                    NodoArbol nodop = new NodoArbol(pito,nodo.getIzquierdo(), nodo.getDerecho());
-                    nodo = nodop;
+                    nodo.setDato(pito);
                 }else if (pito == '-'){
                     res = izq - der;
                     pito = (char) res;
-                    NodoArbol nodop = new NodoArbol(pito,nodo.getIzquierdo(), nodo.getDerecho());;
-                    nodo = nodop;
+                    nodo.setDato(pito);
                 }else if (pito == '*'){
                     res = izq * der;
                     pito = (char) res;
-                    NodoArbol nodop = new NodoArbol(pito,nodo.getIzquierdo(), nodo.getDerecho());
-                    nodo = nodop;
+                    nodo.setDato(pito);
                 }else if (pito == '/'){
                     res = izq / der;
                     pito = (char) res;
-                    NodoArbol nodop = new NodoArbol(pito,nodo.getIzquierdo(), nodo.getDerecho());
-                    nodo = nodop;  
+                    nodo.setDato(pito);
                 }
             
         }

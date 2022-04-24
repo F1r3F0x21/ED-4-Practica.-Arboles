@@ -143,13 +143,13 @@ public class ArbolBinarioBusqueda {
 		ListaOrdinalAlumnos lista = new ListaOrdinalAlumnos();
 		if ( getNumElementos() != lista.getNumElementos()){
 			if (nodo != null){	
+				aListaRec(nodo.getIzquierdo(), nivel + 1);
+				aListaRec(nodo.getDerecho(), nivel + 1);	
 				if (clave.getMatricula() < nodo.getClave()){
 					clave = nodo.getDato();
 				}
-				aListaRec(nodo.getIzquierdo(), nivel + 1);
-				aListaRec(nodo.getDerecho(), nivel + 1);	
 			}
-			lista.insertar(clave);
+			lista.insertar(clave);	
 			borrar(clave.getMatricula());
 			aListaRec(raiz, 1);
 		}
