@@ -200,34 +200,6 @@ public class Arbol {
     // ------------------------------------------------------------------------
     // TODO 2.3
     
-   /* public Arbol(String cadena) {
-        char [] aux;
-        Pila pilaAuxiliar = new Pila();
-        aux = cadena.toCharArray();
-        for (int i = 0; i < cadena.length(); i++){
-            NodoArbol numero = new NodoArbol(aux[i]);
-            if (!esOperador(aux[i])){
-                pilaAuxiliar.apilar(numero);         
-            }else {
-                char pard,pari;
-                if ( i ==  cadena.length()-1){
-                    pard = ' ';
-                    pari = ' ';
-                } else {
-                    pard = '(';
-                    pari = ')'; 
-                }
-                NodoArbol nodoDerecho = pilaAuxiliar.desapilar();
-                NodoArbol parentesisDerecho = new NodoArbol(pari,nodoDerecho,null);
-                NodoArbol nodoIzquierdo = pilaAuxiliar.desapilar();
-                NodoArbol parentesisIzquierdo = new NodoArbol(pard,null,nodoIzquierdo);
-                NodoArbol operador = new NodoArbol(aux[i], parentesisIzquierdo, parentesisDerecho);
-                pilaAuxiliar.apilar(operador);
-                
-            }
-        }
-        raiz = pilaAuxiliar.desapilar();
-    } */
 
     public Arbol(String cadena) {
         char [] aux;
@@ -274,36 +246,6 @@ public class Arbol {
     // ------------------------------------------------------------------------
     // TODO 2.5
 
-<<<<<<< HEAD
-    public double calcularValor() { 
-
-        return this.CalcularValorRec(raiz);
-    }
-
-
-
-    public double CalcularValorRec (NodoArbol nodo){
-        if (nodo == null || nodo.getDato() == '(' || nodo.getDato() ==')' || nodo.getDato() == ' '){
-            return 0.0;
-        }else{
-            if (esOperador(nodo.getDato()) ){
-                if (nodo.getDato() == '+'){
-                        return (this.CalcularValorRec(nodo.getDerecho()) + this.CalcularValorRec(nodo.getIzquierdo()));           
-                }else if(nodo.getDato() == '-'){
-                        return (this.CalcularValorRec(nodo.getDerecho()) - this.CalcularValorRec(nodo.getIzquierdo()));
-                }else if(nodo.getDato() == '*'){
-                        return (this.CalcularValorRec(nodo.getDerecho()) * this.CalcularValorRec(nodo.getIzquierdo()));
-                }else if(nodo.getDato() == '/'){
-                        return (this.CalcularValorRec(nodo.getDerecho()) / this.CalcularValorRec(nodo.getIzquierdo()));
-                }
-                return nodo.getDato();
-            }else{
-                return pasarAEntero(nodo.getDato());
-            }
-        }
-    }
-}
-=======
     /**
      * Recorrido en postorden
      */
@@ -347,4 +289,3 @@ public class Arbol {
         }
     }
 }
->>>>>>> d0b46618c5d2fddd5b983746b90744f791a1689c
