@@ -172,7 +172,7 @@ public class Arbol {
 
     // ------------------------------------------------------------------------
     // 2.3
-    private int pasarAEntero(char c) {
+    private double pasarAEntero(char c) {
         return Character.getNumericValue(c);
     }
 
@@ -243,38 +243,30 @@ public class Arbol {
     // TODO 2.5
 
     public double calcularValor() { 
+
         return this.CalcularValorRec(raiz);
     }
 
-    public double CalcularValorRec (NodoArbol nodo){
-        double izq; double der; char pito; double res = 0.0;
-            if (nodo != null && nodo.getIzquierdo() != null && nodo.getDerecho() != null) { 
-                izq = pasarAEntero(nodo.getIzquierdo().getDato());
-                CalcularValorRec(nodo.getIzquierdo());
-                der = pasarAEntero(nodo.getDerecho().getDato());
-                CalcularValorRec(nodo.getDerecho());
-                pito = raiz.getDato();
-                if ( pito == '+'){
-                    res = izq + der;
-                    pito = (char) res;
-                    nodo.setDato(pito);
-                }else if (pito == '-'){
-                    res = izq - der;
-                    pito = (char) res;
-                    nodo.setDato(pito);
-                }else if (pito == '*'){
-                    res = izq * der;
-                    pito = (char) res;
-                    nodo.setDato(pito);
-                }else if (pito == '/'){
-                    res = izq / der;
-                    pito = (char) res;
-                    nodo.setDato(pito);
-                }
-            
-        }
-        return res;
-    
-    }
 
+
+    public double CalcularValorRec (NodoArbol nodo){
+        if (nodo == null || nodo.getDato() == '(' || nodo.getDato() ==')' || nodo.getDato() == ' '){
+            return 0.0;
+        }else{
+            if (esOperador(nodo.getDato()) ){
+                if (nodo.getDato() == '+'){
+                        return (this.CalcularValorRec(nodo.getDerecho()) + this.CalcularValorRec(nodo.getIzquierdo()));           
+                }else if(nodo.getDato() == '-'){
+                        return (this.CalcularValorRec(nodo.getDerecho()) - this.CalcularValorRec(nodo.getIzquierdo()));
+                }else if(nodo.getDato() == '*'){
+                        return (this.CalcularValorRec(nodo.getDerecho()) * this.CalcularValorRec(nodo.getIzquierdo()));
+                }else if(nodo.getDato() == '/'){
+                        return (this.CalcularValorRec(nodo.getDerecho()) / this.CalcularValorRec(nodo.getIzquierdo()));
+                }
+                return nodo.getDato();
+            }else{
+                return pasarAEntero(nodo.getDato());
+            }
+        }
+    }
 }

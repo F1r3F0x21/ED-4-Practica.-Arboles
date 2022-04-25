@@ -21,6 +21,7 @@ public class Pruebas {
 		arbol.insertar(diego);
 		arbol.insertar(mar);
 
-		arbol.aLista();
+		arbol.aLista().mostrar();
+		
 	}
 }
