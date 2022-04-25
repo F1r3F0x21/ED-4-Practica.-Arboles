@@ -31,7 +31,6 @@ public class Arbol {
     public void preOrden() {
         System.out.print("Preorden: ");
         this.preOrdenRec(raiz);
-        System.out.println();
     }
 
     private void preOrdenRec(NodoArbol nodo) {
@@ -46,9 +45,8 @@ public class Arbol {
      * Recorrido en orden central
      */
     public void ordenCentral() {
-        System.out.println("Orden Central: ");
+        System.out.print("Orden Central: ");
         this.ordenCentralRec(raiz);
-        System.out.println();
     }
 
     private void ordenCentralRec(NodoArbol nodo) {
@@ -65,7 +63,6 @@ public class Arbol {
     public void postOrden() {
         System.out.print("Postorden: ");
         this.postOrdenRec(raiz);
-        System.out.println();
     }
 
     private void postOrdenRec(NodoArbol nodo) {
@@ -157,6 +154,8 @@ public class Arbol {
     }
 
 
+
+
     public void preOrdenNivel() {
         System.out.println("Preorden con niveles: ");
         preOrdenNivelRec(raiz, 1);
@@ -192,10 +191,16 @@ public class Arbol {
         return (c >= '0' && c <= '9');
     }
 
+    private double pasarADouble(char c) {
+        double v = Character.getNumericValue(c);
+        return v;
+    }
+
+
     // ------------------------------------------------------------------------
     // TODO 2.3
-
-    public Arbol(String cadena) {
+    
+   /* public Arbol(String cadena) {
         char [] aux;
         Pila pilaAuxiliar = new Pila();
         aux = cadena.toCharArray();
@@ -222,26 +227,54 @@ public class Arbol {
             }
         }
         raiz = pilaAuxiliar.desapilar();
-    }
+    } */
+
+    public Arbol(String cadena) {
+        char [] aux;
+        Pila pilaAuxiliar = new Pila();
+        aux = cadena.toCharArray();
+        for (int i = 0; i < cadena.length(); i++){
+            NodoArbol numero = new NodoArbol(aux[i]);
+            if (!esOperador(aux[i])){
+                pilaAuxiliar.apilar(numero);         
+            }else {
+                NodoArbol nodoDerecho = pilaAuxiliar.desapilar();
+                NodoArbol nodoIzquierdo = pilaAuxiliar.desapilar();
+                NodoArbol operador = new NodoArbol(aux[i],nodoDerecho,nodoIzquierdo);
+                pilaAuxiliar.apilar(operador);
+            }
+        }
+        raiz = pilaAuxiliar.desapilar();
+    } 
+
+
 
     // ------------------------------------------------------------------------
     // TODO 2.4
 
     public void MostrarExpresion() {
-        this.MostrarExpresionRec(raiz);
-        System.out.println();
+        System.out.print("Expresion: ");
+        this.MostrarExpresionRec(raiz,1);
     }
-    private void MostrarExpresionRec(NodoArbol nodo) {
-        if (nodo != null) { 
-            this.MostrarExpresionRec(nodo.getIzquierdo());
+    private void MostrarExpresionRec(NodoArbol nodo, int nivel) {
+        if (nodo != null) {
+            if (nodo.getDerecho() != null  && nivel > 1) {
+                System.out.print('(');
+            }
+            this.MostrarExpresionRec(nodo.getDerecho(),nivel+1);
             System.out.print(nodo.getDato());
-            this.MostrarExpresionRec(nodo.getDerecho());
-        }
+            this.MostrarExpresionRec(nodo.getIzquierdo(),nivel+1);
+            if (nodo.getIzquierdo() != null && nivel > 1) {
+                System.out.print(')');
+            }
+           
+        } 
     }
 
     // ------------------------------------------------------------------------
     // TODO 2.5
 
+<<<<<<< HEAD
     public double calcularValor() { 
 
         return this.CalcularValorRec(raiz);
@@ -270,3 +303,48 @@ public class Arbol {
         }
     }
 }
+=======
+    /**
+     * Recorrido en postorden
+     */
+    public double calcularValor() {
+        return (this.calcularValorRec(raiz));
+    }
+
+    private double calcularValorRec(NodoArbol nodo) {
+        char dato;
+        if (nodo == null) {
+            return 0.0;
+        } else {
+            dato = nodo.getDato();
+            if (esOperador(dato)) {
+                if (dato == '+') { 
+                    return (this.calcularValorRec(nodo.getDerecho()) + this.calcularValorRec(nodo.getIzquierdo()));
+                }
+                if (dato == '-') { 
+                    return (this.calcularValorRec(nodo.getDerecho()) - this.calcularValorRec(nodo.getIzquierdo()));
+                }
+                if (dato == '*') { 
+                    return (this.calcularValorRec(nodo.getDerecho()) * this.calcularValorRec(nodo.getIzquierdo()));
+                }
+                if (dato == '/') { 
+                    return (this.calcularValorRec(nodo.getDerecho()) / this.calcularValorRec(nodo.getIzquierdo()));
+                }
+                if (dato == '(') {
+                    System.out.println('(');
+                    return (this.calcularValorRec(nodo.getIzquierdo()));
+                }
+                if (dato == ')') {
+                    System.out.println(')');
+                    return (this.calcularValorRec(nodo.getDerecho()));
+                }
+
+                return (dato);
+            }
+            else {
+                    return (pasarADouble(dato));
+            } 
+        }
+    }
+}
+>>>>>>> d0b46618c5d2fddd5b983746b90744f791a1689c
