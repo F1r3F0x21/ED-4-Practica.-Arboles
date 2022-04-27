@@ -31,7 +31,6 @@ public class Arbol {
     public void preOrden() {
         System.out.print("Preorden: ");
         this.preOrdenRec(raiz);
-        System.out.println();
     }
 
     private void preOrdenRec(NodoArbol nodo) {
@@ -46,9 +45,8 @@ public class Arbol {
      * Recorrido en orden central
      */
     public void ordenCentral() {
-        System.out.println("Orden Central: ");
+        System.out.print("Orden Central: ");
         this.ordenCentralRec(raiz);
-        System.out.println();
     }
 
     private void ordenCentralRec(NodoArbol nodo) {
@@ -65,7 +63,6 @@ public class Arbol {
     public void postOrden() {
         System.out.print("Postorden: ");
         this.postOrdenRec(raiz);
-        System.out.println();
     }
 
     private void postOrdenRec(NodoArbol nodo) {
@@ -102,7 +99,7 @@ public class Arbol {
      * Recorrido en amplitud con una cola proporcionada por la clase ArrayDeque
      */
     public void amplitud2() {
-        ArrayDeque<NodoArbol> cola = new ArrayDeque<NodoArbol>();
+        ArrayDeque<NodoArbol> cola = new ArrayDeque<>();
         System.out.print("Amplitud: ");
         if (raiz != null) {
             cola.add(raiz);
@@ -157,6 +154,8 @@ public class Arbol {
     }
 
 
+
+
     public void preOrdenNivel() {
         System.out.println("Preorden con niveles: ");
         preOrdenNivelRec(raiz, 1);
@@ -172,7 +171,7 @@ public class Arbol {
 
     // ------------------------------------------------------------------------
     // 2.3
-    private int pasarAEntero(char c) {
+    private double pasarAEntero(char c) {
         return Character.getNumericValue(c);
     }
 
@@ -192,59 +191,67 @@ public class Arbol {
         return (c >= '0' && c <= '9');
     }
 
+    private double pasarADouble(char c) {
+        double v = Character.getNumericValue(c);
+        return v;
+    }
+
+
     // ------------------------------------------------------------------------
     // TODO 2.3
+    
 
     public Arbol(String cadena) {
         char [] aux;
         Pila pilaAuxiliar = new Pila();
         aux = cadena.toCharArray();
-        int p = 0;
         for (int i = 0; i < cadena.length(); i++){
             NodoArbol numero = new NodoArbol(aux[i]);
             if (!esOperador(aux[i])){
                 pilaAuxiliar.apilar(numero);         
             }else {
-             
-                char pard,pari;
-                if ( i ==  cadena.length()-1){
-                    pard = ' ';
-                    pari = ' ';
-                } else {
-                    pard = '(';
-                    pari = ')'; 
-                }
                 NodoArbol nodoDerecho = pilaAuxiliar.desapilar();
-                NodoArbol parentesisDerecho = new NodoArbol(pari,nodoDerecho,null);
                 NodoArbol nodoIzquierdo = pilaAuxiliar.desapilar();
-                NodoArbol parentesisIzquierdo = new NodoArbol(pard,null,nodoIzquierdo);
-                //NodoArbol operador = new NodoArbol(aux[i], nodoIzquierdo, nodoDerecho);
-                NodoArbol operador = new NodoArbol(aux[i], parentesisIzquierdo, parentesisDerecho);
+                NodoArbol operador = new NodoArbol(aux[i],nodoDerecho,nodoIzquierdo);
                 pilaAuxiliar.apilar(operador);
-                
             }
         }
         raiz = pilaAuxiliar.desapilar();
-    }
+    } 
+
+
 
     // ------------------------------------------------------------------------
     // TODO 2.4
 
     public void MostrarExpresion() {
+<<<<<<< HEAD
         this.MostrarExpresionRec(raiz);
         System.out.println();
+=======
+        System.out.print("Expresion: ");
+        this.MostrarExpresionRec(raiz,1);
+>>>>>>> 6f72910909bafb761f6aed4c76ae1aa303ce23cb
     }
-    private void MostrarExpresionRec(NodoArbol nodo) {
-        if (nodo != null) { 
-            this.MostrarExpresionRec(nodo.getIzquierdo());
+    private void MostrarExpresionRec(NodoArbol nodo, int nivel) {
+        if (nodo != null) {
+            if (nodo.getDerecho() != null  && nivel > 1) {
+                System.out.print('(');
+            }
+            this.MostrarExpresionRec(nodo.getDerecho(),nivel+1);
             System.out.print(nodo.getDato());
-            this.MostrarExpresionRec(nodo.getDerecho());
-        }
+            this.MostrarExpresionRec(nodo.getIzquierdo(),nivel+1);
+            if (nodo.getIzquierdo() != null && nivel > 1) {
+                System.out.print(')');
+            }
+           
+        } 
     }
 
     // ------------------------------------------------------------------------
     // TODO 2.5
 
+<<<<<<< HEAD
     public double calcularValor() { 
 
         return this.CalcularValorRec(raiz);
@@ -281,9 +288,48 @@ public class Arbol {
                    
             
         
+=======
+    /**
+     * Recorrido en postorden
+     */
+    public double calcularValor() {
+        return (this.calcularValorRec(raiz));
     }
-    return res;
 
-}
+    private double calcularValorRec(NodoArbol nodo) {
+        char dato;
+        if (nodo == null) {
+            return 0.0;
+        } else {
+            dato = nodo.getDato();
+            if (esOperador(dato)) {
+                if (dato == '+') { 
+                    return (this.calcularValorRec(nodo.getDerecho()) + this.calcularValorRec(nodo.getIzquierdo()));
+                }
+                if (dato == '-') { 
+                    return (this.calcularValorRec(nodo.getDerecho()) - this.calcularValorRec(nodo.getIzquierdo()));
+                }
+                if (dato == '*') { 
+                    return (this.calcularValorRec(nodo.getDerecho()) * this.calcularValorRec(nodo.getIzquierdo()));
+                }
+                if (dato == '/') { 
+                    return (this.calcularValorRec(nodo.getDerecho()) / this.calcularValorRec(nodo.getIzquierdo()));
+                }
+                if (dato == '(') {
+                    System.out.println('(');
+                    return (this.calcularValorRec(nodo.getIzquierdo()));
+                }
+                if (dato == ')') {
+                    System.out.println(')');
+                    return (this.calcularValorRec(nodo.getDerecho()));
+                }
 
+                return (dato);
+            }
+            else {
+                    return (pasarADouble(dato));
+            } 
+        }
+>>>>>>> 6f72910909bafb761f6aed4c76ae1aa303ce23cb
+    }
 }

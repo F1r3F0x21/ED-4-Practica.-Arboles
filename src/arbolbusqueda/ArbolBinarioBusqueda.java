@@ -134,9 +134,48 @@ public class ArbolBinarioBusqueda {
 
 	// ------------------------------------------------------------------------
 	// TODO 3.2
+	
 	public ListaOrdinalAlumnos aLista() {
-		return null;
+		System.out.println("Lista de alumnos del arbol, en orden de matricula:");
+		ListaOrdinalAlumnos lista = new ListaOrdinalAlumnos();
+		return(aListaRec(raiz,raiz.getClave(),lista));
 	}
+
+	public ListaOrdinalAlumnos aListaRec(NodoArbol nodo, int min, ListaOrdinalAlumnos orden){
+		if (nodo!=null) {
+			if (nodo.getIzquierdo()!= null) {
+					aListaRec(nodo.getIzquierdo(),nodo.getClave(),orden);
+					orden.insertar(nodo.getDato());	
+					aListaRec(nodo.getDerecho(),nodo.getClave(),orden);
+			} else {
+				orden.insertar(nodo.getDato());	
+				aListaRec(nodo.getDerecho(),nodo.getClave(),orden);
+				aListaRec(nodo.getIzquierdo(),nodo.getClave(),orden);	
+			}
+		}
+		return orden;
+	}
+
+
+	/* public void sacarMenor() {
+		System.out.println("Listado Ordenado de Alumnos: ");
+		sacarMenorRc(raiz,raiz.getClave());
+		
+	}
+
+	private void sacarMenorRc(NodoArbol nodo, int min) {
+		if (nodo!=null) {
+			if (nodo.getIzquierdo()!= null) {
+					sacarMenorRc(nodo.getIzquierdo(),nodo.getClave());
+					System.out.println(nodo.getClave());
+					sacarMenorRc(nodo.getDerecho(),nodo.getClave());
+			} else {
+				System.out.println(nodo.getClave());
+				sacarMenorRc(nodo.getDerecho(),nodo.getClave());
+				sacarMenorRc(nodo.getIzquierdo(),nodo.getClave());	
+			}
+		}
+	} */
 
 	// ------------------------------------------------------------------------
 	// TODO 3.3
