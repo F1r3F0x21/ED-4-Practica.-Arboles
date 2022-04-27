@@ -20,6 +20,12 @@ public class Pruebas {
 		arbol.insertar(eduardo);
 		arbol.insertar(diego);
 		arbol.insertar(mar);
+<<<<<<< HEAD
 		arbol.aLista().mostrar();
+=======
+
+		arbol.aLista().mostrar();
+		
+>>>>>>> 498a1afafd1f7ae8b07fc12c6fdc9387992a702f
 	}
 }

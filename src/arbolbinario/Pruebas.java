@@ -9,7 +9,7 @@ public class Pruebas {
         String expresion3 = "29*37-5*+8/";
         String expresion4 = "9";
 
-        Arbol ex1 = new Arbol(expresion1);      
+        Arbol ex1 = new Arbol(expresion1);
         Arbol ex2 = new Arbol(expresion2);
         Arbol ex3 = new Arbol(expresion3);
         Arbol ex4 = new Arbol(expresion4);
@@ -17,14 +17,21 @@ public class Pruebas {
         ex1.MostrarExpresion();
         System.out.println();
         System.out.println("Resultado: " + ex1.calcularValor());
+        System.out.println();
+
         ex2.MostrarExpresion();
         System.out.println();
         System.out.println("Resultado: " + ex2.calcularValor());
+        System.out.println();
+
         ex3.MostrarExpresion();
         System.out.println();
         System.out.println("Resultado: " + ex3.calcularValor());
+        System.out.println();
+
         ex4.MostrarExpresion();
         System.out.println();
         System.out.println("Resultado: " + ex4.calcularValor());
+        System.out.println();
     }
 }

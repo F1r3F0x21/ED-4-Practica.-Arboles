@@ -171,7 +171,7 @@ public class Arbol {
 
     // ------------------------------------------------------------------------
     // 2.3
-    private int pasarAEntero(char c) {
+    private double pasarAEntero(char c) {
         return Character.getNumericValue(c);
     }
 
@@ -200,34 +200,6 @@ public class Arbol {
     // ------------------------------------------------------------------------
     // TODO 2.3
     
-   /* public Arbol(String cadena) {
-        char [] aux;
-        Pila pilaAuxiliar = new Pila();
-        aux = cadena.toCharArray();
-        for (int i = 0; i < cadena.length(); i++){
-            NodoArbol numero = new NodoArbol(aux[i]);
-            if (!esOperador(aux[i])){
-                pilaAuxiliar.apilar(numero);         
-            }else {
-                char pard,pari;
-                if ( i ==  cadena.length()-1){
-                    pard = ' ';
-                    pari = ' ';
-                } else {
-                    pard = '(';
-                    pari = ')'; 
-                }
-                NodoArbol nodoDerecho = pilaAuxiliar.desapilar();
-                NodoArbol parentesisDerecho = new NodoArbol(pari,nodoDerecho,null);
-                NodoArbol nodoIzquierdo = pilaAuxiliar.desapilar();
-                NodoArbol parentesisIzquierdo = new NodoArbol(pard,null,nodoIzquierdo);
-                NodoArbol operador = new NodoArbol(aux[i], parentesisIzquierdo, parentesisDerecho);
-                pilaAuxiliar.apilar(operador);
-                
-            }
-        }
-        raiz = pilaAuxiliar.desapilar();
-    } */
 
     public Arbol(String cadena) {
         char [] aux;
