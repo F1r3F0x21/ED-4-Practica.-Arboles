@@ -11,7 +11,7 @@ public class Pruebas {
 		Alumno diego = new Alumno ("Diego Perez Gonzalez", 8135 ,8.0);
 		Alumno mar = new Alumno ("Mar Hernando Lopez", 8217, 6.3);
 		Alumno pedro = new Alumno ("Pedro Jimenez del Pozo", 8510, 3.0); 
-		Alumno eduardo = new Alumno ("Eduardo Parra Martín", 86765, 6.7);
+		Alumno eduardo = new Alumno ("Eduardo Parra Martín", 8765, 6.7);
 		ArbolBinarioBusqueda arbol = new ArbolBinarioBusqueda();
 		arbol.insertar(alicia);
 		arbol.insertar(pedro);
@@ -21,7 +21,7 @@ public class Pruebas {
 		arbol.insertar(diego);
 		arbol.insertar(mar);
 
-		arbol.aLista().mostrar();
+		arbol.aLista().mostrar();           
 		
 	}
 }
