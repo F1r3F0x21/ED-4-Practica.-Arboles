@@ -134,28 +134,48 @@ public class ArbolBinarioBusqueda {
 
 	// ------------------------------------------------------------------------
 	// TODO 3.2
+	
 	public ListaOrdinalAlumnos aLista() {
-		return aListaRec(raiz, 1);
-	}
-
-	public ListaOrdinalAlumnos aListaRec(NodoArbol nodo, int nivel){
-		Alumno clave = raiz.getDato();
+		System.out.println("Lista de alumnos del arbol, en orden de matricula:");
 		ListaOrdinalAlumnos lista = new ListaOrdinalAlumnos();
-		if ( getNumElementos() != lista.getNumElementos()){
-			if (nodo != null){	
-				aListaRec(nodo.getIzquierdo(), nivel + 1);
-				aListaRec(nodo.getDerecho(), nivel + 1);	
-				if (clave.getMatricula() < nodo.getClave()){
-					clave = nodo.getDato();
-				}
-			}
-			lista.insertar(clave);	
-			borrar(clave.getMatricula());
-			aListaRec(raiz, 1);
-		}
-
-		return lista;
+		return(aListaRec(raiz,raiz.getClave(),lista));
 	}
+
+	public ListaOrdinalAlumnos aListaRec(NodoArbol nodo, int min, ListaOrdinalAlumnos orden){
+		if (nodo!=null) {
+			if (nodo.getIzquierdo()!= null) {
+					aListaRec(nodo.getIzquierdo(),nodo.getClave(),orden);
+					orden.insertar(nodo.getDato());	
+					aListaRec(nodo.getDerecho(),nodo.getClave(),orden);
+			} else {
+				orden.insertar(nodo.getDato());	
+				aListaRec(nodo.getDerecho(),nodo.getClave(),orden);
+				aListaRec(nodo.getIzquierdo(),nodo.getClave(),orden);	
+			}
+		}
+		return orden;
+	}
+
+
+	/* public void sacarMenor() {
+		System.out.println("Listado Ordenado de Alumnos: ");
+		sacarMenorRc(raiz,raiz.getClave());
+		
+	}
+
+	private void sacarMenorRc(NodoArbol nodo, int min) {
+		if (nodo!=null) {
+			if (nodo.getIzquierdo()!= null) {
+					sacarMenorRc(nodo.getIzquierdo(),nodo.getClave());
+					System.out.println(nodo.getClave());
+					sacarMenorRc(nodo.getDerecho(),nodo.getClave());
+			} else {
+				System.out.println(nodo.getClave());
+				sacarMenorRc(nodo.getDerecho(),nodo.getClave());
+				sacarMenorRc(nodo.getIzquierdo(),nodo.getClave());	
+			}
+		}
+	} */
 
 	// ------------------------------------------------------------------------
 	// TODO 3.3
