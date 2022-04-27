@@ -231,7 +231,6 @@ public class Arbol {
     // TODO 2.4
 
     public void MostrarExpresion() {
-        System.out.println("Orden Central: ");
         this.MostrarExpresionRec(raiz);
         System.out.println();
     }
@@ -247,39 +246,40 @@ public class Arbol {
     // TODO 2.5
 
     public double calcularValor() { 
+
         return this.CalcularValorRec(raiz);
 
     }
 
     public double CalcularValorRec (NodoArbol nodo){
     int izq; int der; char pito; double res = 0.0;
-        if (nodo != null) { 
-            this.CalcularValorRec(nodo.getIzquierdo());
-            izq = pasarAEntero(nodo.getIzquierdo().getDato());
-            der = pasarAEntero(nodo.getDerecho().getDato());
+        if (nodo != null ) {     
             pito = nodo.getDato();
+            izq = pasarAEntero(nodo.getIzquierdo().getDato());
+            this.CalcularValorRec(nodo.getIzquierdo());
+            der = pasarAEntero(nodo.getDerecho().getDato());
+            this.CalcularValorRec(nodo.getDerecho());
+            
             if ( pito == '+'){
                 res = izq + der;
                 pito = (char) res;
-                NodoArbol nodop = new NodoArbol(pito);
-                nodo = nodop;
+                nodo.setDato(pito);
             }else if (pito == '-'){
                 res = izq - der;
                 pito = (char) res;
-                NodoArbol nodop = new NodoArbol(pito);
-                nodo = nodop;
+                nodo.setDato(pito);
             }else if (pito == '*'){
                 res = izq * der;
                 pito = (char) res;
-                NodoArbol nodop = new NodoArbol(pito);
-                nodo = nodop;
+                nodo.setDato(pito);
             }else if (pito == '/'){
                 res = izq / der;
                 pito = (char) res;
-                NodoArbol nodop = new NodoArbol(pito);
-                nodo = nodop;
-            }         
-            this.CalcularValorRec(nodo.getDerecho());
+                nodo.setDato(pito);
+            }  
+            
+                   
+            
         
     }
     return res;
