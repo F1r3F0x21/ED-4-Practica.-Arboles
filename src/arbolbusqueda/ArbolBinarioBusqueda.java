@@ -136,7 +136,6 @@ public class ArbolBinarioBusqueda {
 	// TODO 3.2
 	
 	public ListaOrdinalAlumnos aLista() {
-		System.out.println("Lista de alumnos del arbol, en orden de matricula:");
 		ListaOrdinalAlumnos lista = new ListaOrdinalAlumnos();
 		return(aListaRec(raiz,raiz.getClave(),lista));
 	}
@@ -157,42 +156,132 @@ public class ArbolBinarioBusqueda {
 	}
 
 
-	/* public void sacarMenor() {
-		System.out.println("Listado Ordenado de Alumnos: ");
-		sacarMenorRc(raiz,raiz.getClave());
-		
-	}
-
-	private void sacarMenorRc(NodoArbol nodo, int min) {
-		if (nodo!=null) {
-			if (nodo.getIzquierdo()!= null) {
-					sacarMenorRc(nodo.getIzquierdo(),nodo.getClave());
-					System.out.println(nodo.getClave());
-					sacarMenorRc(nodo.getDerecho(),nodo.getClave());
-			} else {
-				System.out.println(nodo.getClave());
-				sacarMenorRc(nodo.getDerecho(),nodo.getClave());
-				sacarMenorRc(nodo.getIzquierdo(),nodo.getClave());	
-			}
-		}
-	} */
 
 	// ------------------------------------------------------------------------
 	// TODO 3.3
 	public Alumno getCalificacionMaxima(int minimaMat, int maximaMat) {
-		return null;
+		if  (getCalificacionAlumnoRec(minimaMat,maximaMat,raiz) == null){
+			return null;
+		}else{
+			return getCalificacionAlumnoRec(minimaMat,maximaMat,raiz);
+		}
+		
 	}
+	private Alumno getCalificacionAlumnoRec(int minimaMat, int maximaMat,NodoArbol nodo){
+		Alumno alumno = null;
+		int matricula = 0;
+		double cal = 0.0;
+		if(nodo != null){
+			this.getCalificacionAlumnoRec(minimaMat,maximaMat,nodo.getIzquierdo());
+			matricula = nodo.getDato().getMatricula();
+			if(matricula>= minimaMat && matricula <= maximaMat){
+				if(cal < nodo.getDato().getCalificacion()){
+					cal = nodo.getDato().getCalificacion();
+					alumno = nodo.getDato();
+				}
+			}
+			this.getCalificacionAlumnoRec(minimaMat,maximaMat,nodo.getDerecho());
+
+		}
+		return alumno;
+	}
+
 
 	// ------------------------------------------------------------------------
 	// TODO 3.4
 	public double getCalificacionMedia(int minimaMat, int maximaMat) {
-		return 0.0;
+
+		double CalMedia =  recgetCalificacionMedia(minimaMat, maximaMat, raiz);
+		if(CalMedia == 0.0){
+			return CalMedia;
+		}
+		int NumAl = numAlumnos(minimaMat,maximaMat);
+		return CalMedia/NumAl;
+	}
+	public double recgetCalificacionMedia(int minimaMat,int maximaMat, NodoArbol nodo){
+		double num = 0.0;
+		int matricula = 0;
+		if(nodo != null){
+			double izquierdo = this.recgetCalificacionMedia(minimaMat,maximaMat,nodo.getIzquierdo());
+			matricula = nodo.getDato().getMatricula();
+			if(matricula>= minimaMat && matricula <= maximaMat){
+				num = num + nodo.getDato().getCalificacion();
+			}
+			double derecho = this.recgetCalificacionMedia(minimaMat,maximaMat,nodo.getDerecho());
+			num = num + izquierdo + derecho;
+		}
+		if(num == 0){
+			return 0.0;
+		}
+		return num;
+	}
+
+	public int numAlumnos(int minimaMat, int maximaMat){
+		return recNumAlumnos(minimaMat,maximaMat,raiz);
+	}
+
+	public int recNumAlumnos(int minimaMat, int maximaMat, NodoArbol nodo){
+		int num = 0;
+		int matricula = 0;
+		if(nodo != null){
+			int izquierdo = this.recNumAlumnos(minimaMat,maximaMat,nodo.getIzquierdo());
+			matricula = nodo.getDato().getMatricula();
+			if(matricula>= minimaMat && matricula <= maximaMat){
+				num++;
+			}
+			int derecho = this.recNumAlumnos(minimaMat,maximaMat,nodo.getDerecho());
+			num = num + izquierdo + derecho;
+		}
+		return num;
 	}
 
 	// ------------------------------------------------------------------------
 	// TODO 3.5
 	public boolean esEquilibrado() {
-		return false;
+		return this.recesEquilibrado(raiz);
 	}
+
+	private boolean recesEquilibrado(NodoArbol nodo) {
+		boolean resultado = false;
+		if (nodo == null) {
+			resultado = true;
+		} else {
+			if (RecAltura(nodo.getDerecho()) - RecAltura(nodo.getIzquierdo()) == 1 || RecAltura(nodo.getDerecho()) - RecAltura(nodo.getIzquierdo()) == -1 || RecAltura(nodo.getDerecho()) - RecAltura(nodo.getIzquierdo()) == 0){
+				resultado = true;
+			}
+			else{
+				resultado = false;
+			}
+			resultado = resultado && recesEquilibrado(nodo.getIzquierdo()) && recesEquilibrado(nodo.getDerecho());
+		}
+		return resultado;
+	}
+
+	
+	private int altura(){
+		return this.RecAltura(raiz);
+	}
+	
+	private int RecAltura(NodoArbol nodo){
+		int resultado;
+		if(nodo == null){
+			resultado = 0;
+		}
+		else{
+			int Iz = this.RecAltura(nodo.getIzquierdo());
+			int Der = this.RecAltura(nodo.getDerecho());
+			if(Der > Iz){
+				resultado = Der + 1;
+			}
+			else{
+				resultado = Iz + 1;
+			}
+
+		}
+
+		return resultado;
+	}
+
+
 
 }
